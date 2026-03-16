@@ -1,6 +1,6 @@
 // Utility to handle API calls to the FastAPI backend
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/tools";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://xentool-production.up.railway.app/api/tools";
 
 export const uploadFile = async (endpoint, file, onProgress) => {
   const formData = new FormData();
