@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+Pillow
+img2pdf
+qrcode
+pdf2docx
+python-pptx
+PyPDF2

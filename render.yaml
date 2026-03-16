@@ -1,0 +1,31 @@
+services:
+  # Backend API Service
+  - type: web
+    name: xentool-backend
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # Frontend Web Service
+  - type: web
+    name: xentool-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: xentool-backend
+          envVarKey: RENDER_EXTERNAL_URL
+        # Append /api/tools to the backend URL for the frontend variable
+        # Render doesn't support appending natively in fromService easily,
+        # so we will use just the URL or provide it manually.
+        # But for Render Blueprint, usually we can refer to properties, wait.
+        # Actually it's simpler to set it manually if they don't use blueprint linking,
+        # but let's just leave the key for VITE_API_BASE_URL
